@@ -1,0 +1,57 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plant Website</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white">
+  
+  <!-- Header -->
+  <header class="fixed w-full top-0 left-0 z-50 bg-transparent backdrop-blur-md">
+    <nav class="container mx-auto flex items-center justify-between h-16 sm:h-20 px-4">
+      <div class="text-white text-2xl font-bold flex items-center gap-2">
+        <i class="ri-plant-fill"></i> My portfolio
+      </div>
+      <ul class="hidden lg:flex space-x-8 text-white">
+        <li><a href="#home" class="hover:text-blue-400 transition-colors duration-300">Portfolio</a></li>
+        <li><a href="#about" class="hover:text-blue-400 transition-colors duration-300">Data</a></li>
+        <li><a href="#popular" class="hover:text-blue-400 transition-colors duration-300">Decision maker</a></li>
+        <li><a href="#review" class="hover:text-blue-400 transition-colors duration-300">Other</a></li>
+      </ul>
+      <div class="lg:hidden text-white text-2xl cursor-pointer">
+        <i class="ri-menu-3-line"></i>
+      </div>
+    </nav>
+  </header>
+  <main class="pt-20 text-white">
+    <!-- Home Section -->
+    <section id="home" class="container mx-auto flex flex-col lg:flex-row items-center gap-10 px-4 py-16">
+      <div class="lg:w-1/2 space-y-6">
+        <h1 class="text-4xl font-bold">
+          <span class="text-blue-600">Turnover</span> is vanity<br>
+          <span class="text-blue-600">Result</span> is sanity <br>
+          <span class="text-blue-600">Cash</span> is reality <br>
+        </h1>
+        <div class="flex gap-4">
+          <button class="bg-blue-500 text-white px-6 py-2 rounded-lg">Shop Now</button>
+          <button class="border border-blue-500 text-blue-500 px-6 py-2 rounded-lg">Know More</button>
+        </div>
+      </div>
+      <div class="lg:w-1/2 flex justify-center">
+        <img src="{% static 'assets/ski.jpg' %}" alt="My Image">
+      </div>
+    </section>
+    <!-- Portfolio -->
+
+    <section id="portfolio" class="container mx-auto">
+      <div id="containing-personal-assets" class="bg-blue-500">
+        <div id="assets-lines" class="font-bold p-6">This is my asset</div>
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>
