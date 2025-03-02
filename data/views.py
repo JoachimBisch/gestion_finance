@@ -7,10 +7,29 @@ from datetime import date
 from data.core.assets import Asset
 from django.middleware.csrf import get_token
 from data.models import AssetSchema
+from django.views.decorators.csrf import csrf_exempt
+
 import json
 
 def home(request):
     return render(request, "home.html")
+
+@csrf_exempt
+def delete_asset(request, asset_id):
+    if request.method == "DELETE":
+        try:
+            asset = Asset.objects.get(id=asset_id)
+            asset.delete()
+            return JsonResponse({"success": True})
+        except Asset.DoesNotExist:
+            return JsonResponse({"error": "Asset not found"}, status=404)
+    
+    return JsonResponse({"error": "Invalid request"}, status=400)
+
+class GetAssetsView(View):
+    def get(self, request):
+        assets = Asset.objects.all().values("id", "name", "value", "acquisition_date")  # Fetch assets
+        return JsonResponse({"assets": list(assets)})  # Convert to JSON
 
 class CreateAssetView(View):
     def post(self, request):
