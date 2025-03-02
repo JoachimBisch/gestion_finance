@@ -1,29 +1,24 @@
+# mypy: ignore-errors
+
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views import View
 from datetime import date
 from data.core.assets import Asset
+from django.middleware.csrf import get_token
 from data.models import AssetSchema
+import json
 
 def home(request):
     return render(request, "home.html")
 
 class CreateAssetView(View):
-    def get(self, request):
-        """Temporary GET method to trigger asset creation for testing."""
-        return self.post(request)  # Just call the POST method for now
     def post(self, request):
         try:
-            # Define the asset data (this can be replaced with request data later)
-            asset_data = {
-                "name": "First fictionnal test asset just to check postgresql database connection !",
-                "value": 1500.0,
-                "acquisition_date": date(2022, 5, 15),
-                "history": [(date(2022, 5, 15), 1500.0)],
-            }
+            data = json.loads(request.body)  # Read JSON from request
 
-            # Validate data using Pydantic
-            validated_asset = AssetSchema(**asset_data)
+            # Validate input data using Pydantic schema
+            validated_asset = AssetSchema(**data)
 
             # Create and save the asset in the database
             asset = Asset.objects.create(
@@ -33,7 +28,9 @@ class CreateAssetView(View):
                 history=[(d.isoformat(), v) for d, v in validated_asset.history],  # Convert dates to strings
             )
 
-            return JsonResponse({"message": "Asset created successfully", "asset_id": asset.id})
-
+            return JsonResponse({"message": f"Asset {asset.name}", "asset_id": asset.id})
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=400)
+
+    def get(self, request):
+        return JsonResponse({"csrfToken": get_token(request)})

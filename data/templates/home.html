@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Plant Website</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="{% static 'js/asset.js' %}"></script>
 </head>
 <body class="bg-black text-white">
   
@@ -51,7 +52,14 @@
         <div id="assets-lines" class="font-bold p-6">This is my asset</div>
       </div>
     </section>
+    <form id="asset-form" class="p-6">
+      {% csrf_token %} <!-- Ensure the CSRF token is included -->
+      <input type="text" id="name" name="name" placeholder="Asset Name" required class="border p-2 rounded w-full text-blue-800">
+      <input type="number" id="value" name="value" placeholder="Value" required class="border p-2 rounded w-full mt-2 text-blue-800">
+      <input type="date" id="acquisition_date" name="acquisition_date" required class="border p-2 rounded w-full mt-2 text-blue-800">
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Add Asset</button>
+    </form>
+    <div id="success-message" class="hidden text-green-500 mt-4"></div>
   </main>
-
 </body>
 </html>
