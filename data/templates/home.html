@@ -59,7 +59,10 @@
       <input type="date" id="acquisition_date" name="acquisition_date" required class="border p-2 rounded w-full mt-2 text-blue-800">
       <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Add Asset</button>
     </form>
-    <div id="success-message" class="hidden text-green-500 mt-4"></div>
+    <!-- Notification Banner -->
+    <div id="notification" class="fixed top-20 right-5 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform translate-x-full transition-all duration-500">
+      <span id="notification-message"></span>
+    </div>
   </main>
 </body>
 </html>
