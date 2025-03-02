@@ -1,13 +1,25 @@
 # mypy: ignore-errors
 
-from django.db import models
-from data.core.assets import Asset
+from pydantic_settings import BaseSettings
+from pydantic import BaseModel, Field
 from datetime import date
+from typing import List, Tuple
 
-# class Asset(models.Model):
-#     name: str = models.CharField(max_length=255)
-#     value: float = models.FloatField()
-#     acquisition_date: date = models.DateField()
+class AssetSchema(BaseModel):
+    name: str = Field(..., max_length=255)
+    value: float
+    acquisition_date: date
+    history: List[Tuple[date, float]] = []
 
-#     def __str__(self):
-#         return f"{self.name} - {self.value} - {self.acquisition_date}"
+
+class DatabaseSettings(BaseSettings):
+    DB_NAME: str
+    DB_USER: str
+    DB_PASSWORD: str
+    DB_HOST: str = "localhost"
+    DB_PORT: int = 5432
+
+    class Config:
+        env_file = ".env"  # Load settings from a .env file
+
+db_settings = DatabaseSettings()

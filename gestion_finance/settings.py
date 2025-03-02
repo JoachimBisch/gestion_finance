@@ -1,3 +1,5 @@
+# mypy: ignore-errors
+
 """
 Django settings for gestion_finance project.
 
@@ -11,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os 
 from pathlib import Path
+from data.models import db_settings
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -74,10 +77,15 @@ WSGI_APPLICATION = 'gestion_finance.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': db_settings.DB_NAME,
+        'USER': db_settings.DB_USER,
+        'PASSWORD': db_settings.DB_PASSWORD,
+        'HOST': db_settings.DB_HOST,
+        'PORT': db_settings.DB_PORT,
     }
 }
 
